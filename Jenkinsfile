@@ -35,5 +35,17 @@ pipeline {
                 }
             }
         }
+                stage('deploy') {
+            input {
+               message "select the version to display"
+                ok "version selected"
+                Parameters {
+                    choice(name: 'newversion', choices: ['2.1', '2.2', '2.3'])
+                }
+            }
+                steps {
+                script {
+                    echo 'deploy the app'    
+        }
     }
 }
