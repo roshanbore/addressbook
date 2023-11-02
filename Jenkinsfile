@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    tools{
+    tools {
         jdk 'myjava'
         maven 'mymaven'
-            
+    }
     parameters {
         string(name: 'rosh', defaultValue: 'test', description: 'env to compile') 
         booleanParam(name: 'executeTests', defaultValue: true, description: 'decide to run')
