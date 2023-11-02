@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools{
+        jdk 'myjava'
+        maven 'mymaven'
+            
     parameters {
         string(name: 'rosh', defaultValue: 'test', description: 'env to compile') 
         booleanParam(name: 'executeTests', defaultValue: true, description: 'decide to run')
@@ -12,6 +16,7 @@ pipeline {
                 script {
                     echo 'compile hello'
                     echo "compile in rosh: ${params.rosh}" 
+                    sh "mvn compile"
                 }
             }
         }
@@ -24,6 +29,7 @@ pipeline {
             steps {
                 script {
                     echo 'unittest hello'
+                    sh "mvn test"
                 }
             }
         }
@@ -32,6 +38,7 @@ pipeline {
                 script {
                     echo 'package hello'
                     echo "packaging the code version ${params.APPVERSION}"
+                    sh "mvn package"
                 }
             }
         }
