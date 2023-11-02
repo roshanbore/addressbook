@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('compile') {
+            steps {
+                echo 'compile hello'
+            }
+        }
+        stage('unit test') {
+            steps {
+                echo 'unittest hello'
+            }
+        }
+        stage('package') {
+            steps {
+                echo 'package hello'
+            }
+        }
+    }
+}
