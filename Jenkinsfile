@@ -1,8 +1,8 @@
 pipeline {
     agent none
     tools {
-        jdk 'jdk' 
-        maven 'mymaven' 
+        jdk 'mymaven' 
+        maven 'maven' 
     }
     parameters {
         string(name: 'rosh', defaultValue: 'test', description: 'env to compile') 
