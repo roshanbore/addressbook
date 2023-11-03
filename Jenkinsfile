@@ -9,6 +9,8 @@ pipeline {
         booleanParam(name: 'executeTests', defaultValue: true, description: 'decide to run')
         choice(name: 'APPVERSION', choices: ['1.1', '1.2', '1.3'])
     }
+    envoronment {
+        DEV-SERVER= 'ec2-user@172.31.38.156
 
     stages {
         stage('compile') {
@@ -47,7 +49,8 @@ pipeline {
                     sshagent (['aws-key']) {
                     echo 'package hello'
                     echo "packaging the code version ${params.APPVERSION}"
-                    sh "mvn package"
+                    sh "scp -0 StrictHostkKeyChecking=no server-config.sh ${DEV_SERVER}:/home/ec2-user"
+                  sh "scp -0 StrictHostkKeyChecking=no $ {DEV_SERVER} 'bash~/server-config.sh'"
                 }
             }
         }
