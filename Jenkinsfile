@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     tools {
         jdk 'jdk' // Use the actual tool name for Java
         maven 'maven' // Use the actual tool name for Maven
@@ -12,6 +12,7 @@ pipeline {
 
     stages {
         stage('compile') {
+            agent any
             steps {
                 script {
                     echo 'compile hello'
@@ -21,6 +22,7 @@ pipeline {
             }
         }
         stage('unit test') {
+            agent any
             when {
                 expression {
                     params.executeTests == true
@@ -33,7 +35,13 @@ pipeline {
                 }
             }
         }
+        post {
+            always {
+                junit 'target/surefire-reports/*.xml'
+
+        
         stage('package') {
+            agent {label 'linux_slave'}
             steps {
                 script {
                     echo 'package hello'
@@ -43,6 +51,7 @@ pipeline {
             }
         }
         stage('deploy') {
+            agent any
             input {
                 message "select the version to display"
                 ok "version selected"
