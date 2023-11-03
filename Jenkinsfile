@@ -8,9 +8,9 @@ pipeline {
         booleanParam(name: 'executeTests', defaultValue: true, description: 'decide to run')
         choice(name: 'APPVERSION', choices: ['1.1', '1.2', '1.3'])
     }
-    environment {
+    //environment {
         DEV_SERVER= 'ec2-user@172.31.38.156'
-    }
+    }//
     stages {
         stage('compile') {
             agent any
@@ -36,19 +36,7 @@ pipeline {
                 }
             }
         }
-        stage('package') {
-            agent any
-            steps {
-                script {
-                    sshagent (['roshan']) {
-                        echo 'package hello'
-                        echo "packaging the code version ${params.APPVERSION}"
-                        sh "scp -o StrictHostKeyChecking=no server-config.sh ${DEV_SERVER}:/home/ec2-user"
-                        sh "ssh -o StrictHostKeyChecking=no ${DEV_SERVER} 'bash ~/server-config.sh'"
-                    }
-                }
-            }
-        }
+
         stage('deploy') {
             agent any
             input {
