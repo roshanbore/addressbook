@@ -8,9 +8,7 @@ pipeline {
         booleanParam(name: 'executeTests', defaultValue: true, description: 'decide to run')
         choice(name: 'APPVERSION', choices: ['1.1', '1.2', '1.3'])
     }
-    //environment {
-        DEV_SERVER= 'ec2-user@172.31.38.156'
-    }//
+
     stages {
         stage('compile') {
             agent any
