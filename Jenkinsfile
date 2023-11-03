@@ -1,8 +1,8 @@
 pipeline {
     agent none
     tools {
-        jdk 'jdk' // Use the actual tool name for Java
-        maven 'maven' // Use the actual tool name for Maven
+        jdk 'jdk' 
+        maven 'mymaven' 
     }
     parameters {
         string(name: 'rosh', defaultValue: 'test', description: 'env to compile') 
@@ -37,11 +37,6 @@ pipeline {
                 }
             }
         }
-        post {
-            always {
-                junit 'target/surefire-reports/*.xml'
-            }
-        }
         stage('package') {
             agent any
             steps {
@@ -66,7 +61,12 @@ pipeline {
             }
             steps {
                 script {
-                    echo 'deploy the app'    
+                    echo 'deploy the app'
+                }
+            }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
                 }
             }
         }
