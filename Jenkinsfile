@@ -41,7 +41,7 @@ pipeline {
             agent any
             steps {
                 script {
-                    sshagent (['aws-key']) {
+                    sshagent (['roshan']) {
                         echo 'package hello'
                         echo "packaging the code version ${params.APPVERSION}"
                         sh "scp -o StrictHostKeyChecking=no server-config.sh ${DEV_SERVER}:/home/ec2-user"
