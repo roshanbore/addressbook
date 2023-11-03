@@ -41,9 +41,10 @@ pipeline {
 
         
         stage('package') {
-            agent {label 'linux_slave'}
+            agent any
             steps {
                 script {
+                    sshagent (['aws-key']) {
                     echo 'package hello'
                     echo "packaging the code version ${params.APPVERSION}"
                     sh "mvn package"
